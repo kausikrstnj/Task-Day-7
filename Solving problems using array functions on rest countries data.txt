@@ -1,0 +1,107 @@
+// a.Get all the countries from Asia continent /region using Filter function
+
+const XMLHttpRequest = require('xhr2');
+let xhr = new XMLHttpRequest();
+xhr.open('GET', 'https://restcountries.com/v3.1/all');
+xhr.responseType = 'json';
+xhr.send();
+xhr.onload = function () {
+    if (xhr.status === 200) {
+        const countries = xhr.response;
+
+        const asiaCountries = countries.filter(country => {
+            return country.region === 'Asia';
+        });
+
+        console.log(asiaCountries);
+    } else {
+        console.error('Failed to fetch data. Status:', xhr.status);
+    }
+
+}
+
+//b. Get all the countries with a population of less than 2 lakhs using Filter function
+
+const XMLHttpRequest = require('xhr2');
+let xhr = new XMLHttpRequest();
+xhr.open('GET', 'https://restcountries.com/v3.1/all');
+xhr.responseType = 'json';
+xhr.send();
+xhr.onload = function () {
+    if (xhr.status === 200) {
+        const countries = xhr.response;
+
+        const asiaCountries = countries.filter(country => {
+            return country.population < 200000;
+        });
+
+        console.log(asiaCountries);
+    } else {
+        console.error('Failed to fetch data. Status:', xhr.status);
+    }
+
+}
+
+//c.Print the following details name, capital, flag, using forEach function
+
+const XMLHttpRequest = require('xhr2');
+let xhr = new XMLHttpRequest();
+xhr.open('GET', 'https://restcountries.com/v3.1/all');
+xhr.responseType = 'json';
+xhr.send();
+xhr.onload = function () {
+    if (xhr.status === 200) {
+        const countries = xhr.response;
+        countries.forEach(country => {
+            console.log('Name:', country.name.common);
+            console.log('Capital:', country.capital);
+            console.log('Flag:', country.flags);
+            console.log('-----------------------------------------');
+        });
+    } else {
+        console.error('Failed to fetch data. Status:', xhr.status);
+    }
+}
+
+//d.Print the total population of countries using reduce function
+
+const XMLHttpRequest = require('xhr2');
+let xhr = new XMLHttpRequest();
+xhr.open('GET', 'https://restcountries.com/v3.1/all');
+xhr.responseType = 'json';
+xhr.send();
+xhr.onload = function () {
+    if (xhr.status === 200) {
+        const countries = xhr.response;
+        const totalPopulation = countries.reduce((accumulator, country) => {
+            const population = country.population ? parseInt(country.population, 10) : 0;
+            const countryName = country.name.common;
+            console.log(countryName + '-' + population);
+            return accumulator + population;
+        }, 0);
+    } else {
+        console.error('Failed to fetch data. Status:', xhr.status);
+    }
+}
+
+//e.Print the country that uses US dollars as currency.
+
+const XMLHttpRequest = require('xhr2');
+let xhr = new XMLHttpRequest();
+xhr.open('GET', 'https://restcountries.com/v3.1/all');
+xhr.responseType = 'json';
+xhr.send();
+xhr.onload = function () {
+    if (xhr.status === 200) {
+        const countries = xhr.response;
+        const asiaCountries = countries
+            .filter(country => country.currencies && country.currencies.USD)
+            .map(country => country.name.common);
+
+        console.log('Countries using USD:', asiaCountries);
+        console.log('-----------------------');
+    } else {
+        console.error('Failed to fetch data. Status:', xhr.status);
+    }
+
+}
